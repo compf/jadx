@@ -52,29 +52,29 @@ public final class TypeUpdate {
 	/**
 	 * Perform recursive type checking and type propagation for all related variables
 	 */
-	public TypeUpdateResult apply(MethodNode mth, SSAVar ssaVar, ArgType candidateType) {
+	public TypeUpdateResult apply(TypeUpdateParam params) {
 		return apply(mth, ssaVar, candidateType, TypeUpdateFlags.FLAGS_EMPTY);
 	}
 
 	/**
 	 * Allow wider types for apply from debug info and some special cases
 	 */
-	public TypeUpdateResult applyWithWiderAllow(MethodNode mth, SSAVar ssaVar, ArgType candidateType) {
+	public TypeUpdateResult applyWithWiderAllow(TypeUpdateParam params) {
 		return apply(mth, ssaVar, candidateType, TypeUpdateFlags.FLAGS_WIDER);
 	}
 
 	/**
 	 * Force type setting
 	 */
-	public TypeUpdateResult applyWithWiderIgnSame(MethodNode mth, SSAVar ssaVar, ArgType candidateType) {
+	public TypeUpdateResult applyWithWiderIgnSame(TypeUpdateParam params) {
 		return apply(mth, ssaVar, candidateType, TypeUpdateFlags.FLAGS_WIDER_IGNORE_SAME);
 	}
 
-	public TypeUpdateResult applyWithWiderIgnoreUnknown(MethodNode mth, SSAVar ssaVar, ArgType candidateType) {
+	public TypeUpdateResult applyWithWiderIgnoreUnknown(TypeUpdateParam params) {
 		return apply(mth, ssaVar, candidateType, TypeUpdateFlags.FLAGS_WIDER_IGNORE_UNKNOWN);
 	}
 
-	private TypeUpdateResult apply(MethodNode mth, SSAVar ssaVar, ArgType candidateType, TypeUpdateFlags flags) {
+	private TypeUpdateResult apply(TypeUpdateParam params, TypeUpdateFlags flags) {
 		if (candidateType == null || !candidateType.isTypeKnown()) {
 			return REJECT;
 		}
